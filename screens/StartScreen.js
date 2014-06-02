@@ -1,12 +1,6 @@
 StartScreen = function() {
     StartScreen.superclass.constructor.apply(this, arguments);
 
-    /*this.addChild(new TGE.Text().setup({
-            x : 700,
-            y : 300,
-            text : "Click to SMASH",
-            pressFunction : this.gotoGameScreen.bind(this)
-    }));*/
 	this.backgroundColor = "#CD9B00";
     this.addChild(new TGE.Button().setup({
         x : this.percentageOfWidth(0.5),

@@ -3,11 +3,11 @@ GameScreen = function(width,height)
 {
    
     GameScreen.superclass.constructor.apply(this,arguments);
-
+    this.backgroundColor = "#CD9B00";
     this.blocks = new Array();
     this.createBlock(300,300,"b1");
     this.createBlock(400,400,"b2");
-    //this.createBlock(0,0,"b3");
+   
     
 
     
@@ -53,7 +53,7 @@ GameScreen.prototype =
     getBounds:function(){
         return this._checkVisibilityChange(),this._mBoundingInfoDirty&&this._updateAABB(),this._mAABB
     },
-  //updateCylinder
+
     updateTeemo:function(event){
         for(var x =0;x<6;x++){
             if(collision(bs[x],teemo)){
