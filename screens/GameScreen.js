@@ -11,8 +11,9 @@ GameScreen = function(width,height)
     this.createBlock(450,300,"b1");
     this.createBlock(500,300,"b1");
     this.createBlock(550,300,"b1");
-    this.checkCollision();
-
+    /*for(var x =0;x<this.blocks.length-1;x++){
+        this.blocks[x].addEventListener("update",this.checkCollision.bind(this.blocks[x]));
+    }  */  
     
 };
 
