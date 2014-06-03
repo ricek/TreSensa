@@ -8,7 +8,13 @@ GameScreen = function(width,height)
     
     this.createBlock(300,300,"b1");
     this.createBlock(350,300,"b1");
-    this.checkCollision();
+    /*this.createBlock(400,300,"b1");
+    this.createBlock(450,300,"b1");
+    this.createBlock(500,300,"b1");
+    this.createBlock(550,300,"b1");
+    this.createBlock(600,300,"b1");*/
+    
+    this.collision(this.blocks[0],this.blocks[1]);
     
     
 
@@ -21,7 +27,9 @@ GameScreen.prototype =
    
     updateBrick: function(event){
         var b = event.currentTarget;
+        b.x +=10;
         b.play();
+        
         
 
     },
@@ -45,17 +53,17 @@ GameScreen.prototype =
         
 
     },
-    getBounds:function(){
+    /*getBounds:function(){
         return this._checkVisibilityChange(),this._mBoundingInfoDirty&&this._updateAABB(),this._mAABB
-    },
-    /*collision: function(b1,b2){
-       	if(b1.getBounds().intersects(b2.getBounds()),0.5,0.5){
-            return true;
+    },*/
+    collision: function(b1,b2){
+       	if(b1.getBounds().intersects(b2.getBounds(),0.55,0.55)){
+            b2.play();
         }
         else{
-            return false;
+            return;
         }
-    },*/
+    },
    
 
     /*updateTeemo:function(event){
@@ -65,15 +73,19 @@ GameScreen.prototype =
             }
         }
     },*/
-    checkCollision:function(){
+    /*checkCollision:function(){
         for(var x =0;x<this.blocks.length-1;x++){
+            	if(this.collision(this.blocks[x],this.blocks[x+1]))
+            		{
+            			this.blocks[x+1].play();
+            		}
+            		
         	
-            if(this.blocks[x].getBounds().intersects(this.blocks[x+1].getBounds()),0.5,0.5)
-            	
-                this.blocks[x+1].play();
-        }
+            }
         
-    },
+        
+        
+    },*/
 
 
 };
