@@ -4,19 +4,22 @@ GameScreen = function(width,height)
    
     GameScreen.superclass.constructor.apply(this,arguments);
     this.backgroundColor = "#CD9B00";
-    this.blocks = new Array();
-    
-    this.createBlock(300,300,"b1");
-    this.createBlock(350,300,"b1");
+    //this.blocks = new Array();
+    this.createTeemo();
+    //this.createBlock(300,300,"b1");
+   // this.createBlock(350,300,"b1");
     /*this.createBlock(400,300,"b1");
     this.createBlock(450,300,"b1");
     this.createBlock(500,300,"b1");
     this.createBlock(550,300,"b1");
     this.createBlock(600,300,"b1");*/
     
-    this.collision(this.blocks[0],this.blocks[1]);
+    //this.collision(this.blocks[0],this.blocks[1]);
     
-    
+    this.gameOver = false;
+    while(!this.gameOver){
+        this.createMush((100+Math.random()*this.width-200),0);
+    }
 
     
 };
@@ -33,23 +36,29 @@ GameScreen.prototype =
         
 
     },
-    createBlock: function(posx,posy,type){
-        var b =new TGE.SpriteSheetAnimation().setup(
+    createMush:function(posx,posy){
+        var m = new TGE.Sprite().setup(
         {
-            image:type,
-            columns:1,
-            rows:4,
-            totalFrames:4,
-            fps:24,
+            image:'m',
             x:posx,
             y:posy,
-            scaleX: 0.35,
-            scaleY: 0.35,
-            looping:false,
         });
-        this.blocks.push(b);
+    },
+    createTeemo: function(){
+        var b =new TGE.SpriteSheetAnimation().setup(
+        {
+            image:'teemo',
+            columns:7,
+            rows:1,
+            totalFrames:7,
+            fps:7,
+            x:500,
+            y:200,
+        });
+        //this.blocks.push(b);
         this.addChild(b);
-        this.blocks[this.blocks.length-1].addEventListener("mousedown",this.updateBrick.bind(this.blocks[this.blocks.length-1]));
+        b.play();
+        //this.blocks[this.blocks.length-1].addEventListener("mousedown",this.updateBrick.bind(this.blocks[this.blocks.length-1]));
         
 
     },
