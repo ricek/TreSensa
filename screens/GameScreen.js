@@ -16,10 +16,7 @@ GameScreen = function(width,height)
     
     //this.collision(this.blocks[0],this.blocks[1]);
     
-    this.gameOver = false;
-    while(!this.gameOver){
-        this.createMush((100+Math.random()*this.width-200),0);
-    }
+    for(var x = 0 ;x< 100;x++){this.createMush(Math.random()*this.width,100);}
 
     
 };
@@ -36,13 +33,21 @@ GameScreen.prototype =
         
 
     },
+    updateTeemo: function(event){
+        var t = event.currentTarget;
+        if(event.keyCode==37){t.x-=10;}
+        if(event.keyCode==39){t.x+=10;}
+    },
     createMush:function(posx,posy){
         var m = new TGE.Sprite().setup(
         {
             image:'m',
             x:posx,
             y:posy,
+            percentageOfHeight:0.5,
+            percentageOfWidth:0.5,
         });
+        this.addChild(m);
     },
     createTeemo: function(){
         var b =new TGE.SpriteSheetAnimation().setup(
@@ -52,15 +57,14 @@ GameScreen.prototype =
             rows:1,
             totalFrames:7,
             fps:7,
-            x:500,
-            y:200,
+            x:600,
+            y:700,
         });
         //this.blocks.push(b);
         this.addChild(b);
         b.play();
         //this.blocks[this.blocks.length-1].addEventListener("mousedown",this.updateBrick.bind(this.blocks[this.blocks.length-1]));
-        
-
+        b.addEventListener("keydown",this.updateTeemo.bind(b));
     },
     /*getBounds:function(){
         return this._checkVisibilityChange(),this._mBoundingInfoDirty&&this._updateAABB(),this._mAABB
