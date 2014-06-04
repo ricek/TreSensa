@@ -4,8 +4,12 @@ GameScreen = function(width,height)
    
     GameScreen.superclass.constructor.apply(this,arguments);
     this.backgroundColor = "#CD9B00";
+    this.teemo;
+    this.mush;
+    this.mushs= new Array();
     //this.blocks = new Array();
     this.createTeemo();
+
     //this.createBlock(300,300,"b1");
    // this.createBlock(350,300,"b1");
     /*this.createBlock(400,300,"b1");
@@ -16,8 +20,8 @@ GameScreen = function(width,height)
     
     //this.collision(this.blocks[0],this.blocks[1]);
     
-    for(var x = 0 ;x< 100;x++){this.createMush(Math.random()*this.width,100);}
-
+    for(var x = 0 ;x<10;x++){this.createMush(Math.random()*this.width,-100);}
+    
     
 };
 
@@ -33,24 +37,35 @@ GameScreen.prototype =
         
 
     },
+    updateMush:function(event){
+        var m = event.currentTarget;
+        m.y+=3;
+        
+    },
     updateTeemo: function(event){
         var t = event.currentTarget;
-        if(event.keyCode==37){t.x-=10;}
-        if(event.keyCode==39){t.x+=10;}
+        if(event.keyCode==37){t.x-=30;}
+        if(event.keyCode==39){t.x+=30;}
     },
     createMush:function(posx,posy){
-        var m = new TGE.Sprite().setup(
+        this.mush = new TGE.Sprite().setup(
         {
             image:'m',
             x:posx,
             y:posy,
-            percentageOfHeight:0.5,
-            percentageOfWidth:0.5,
+            scaleX:0.2,
+            scaleY:0.2
+            
         });
-        this.addChild(m);
+        this.addChild(this.mush);
+        this.mush.addEventListener("update",this.updateMush.bind(this.mush));
+        this.addEventListener("update",this.updateGame.bind(this));
+        this.mushs.push(this.mush);
+
+        //this.mush.addEventListener("update",this.updateCollision.bind(this.mush));
     },
     createTeemo: function(){
-        var b =new TGE.SpriteSheetAnimation().setup(
+        this.teemo =new TGE.SpriteSheetAnimation().setup(
         {
             image:'teemo',
             columns:7,
@@ -58,25 +73,30 @@ GameScreen.prototype =
             totalFrames:7,
             fps:7,
             x:600,
-            y:700,
+            y:800,
         });
         //this.blocks.push(b);
-        this.addChild(b);
-        b.play();
+        this.addChild(this.teemo);
+        this.teemo.play();
         //this.blocks[this.blocks.length-1].addEventListener("mousedown",this.updateBrick.bind(this.blocks[this.blocks.length-1]));
-        b.addEventListener("keydown",this.updateTeemo.bind(b));
+        this.teemo.addEventListener("keydown",this.updateTeemo.bind(this.teemo));
+    },
+    updateGame:function() {
+        for(var x =0;x<this.mushs.length;x++){
+        if(this.teemo.getBounds().intersects(this.mushs[x].getBounds())){this.removeChild(this.mushs[x]);}
+    }
     },
     /*getBounds:function(){
         return this._checkVisibilityChange(),this._mBoundingInfoDirty&&this._updateAABB(),this._mAABB
     },*/
-    collision: function(b1,b2){
+    /*collision: function(b1,b2){
        	if(b1.getBounds().intersects(b2.getBounds(),0.55,0.55)){
-            b2.play();
+            return true;
         }
         else{
-            return;
+            return false;
         }
-    },
+    },*/
    
 
     /*updateTeemo:function(event){
@@ -86,18 +106,10 @@ GameScreen.prototype =
             }
         }
     },*/
-    /*checkCollision:function(){
-        for(var x =0;x<this.blocks.length-1;x++){
-            	if(this.collision(this.blocks[x],this.blocks[x+1]))
-            		{
-            			this.blocks[x+1].play();
-            		}
-            		
-        	
-            }
-        
-        
-        
+    /*updateCollision:function(){
+        if(this.collision(this.mush,this.teemo)){
+            this.removeChild(this.mush);
+        }
     },*/
 
 
