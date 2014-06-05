@@ -20,7 +20,11 @@ var GameConfig = {
 	    "js/game/MyGame.js",
 	    "js/game/screens/GameScreen.js",
         "js/game/screens/StartScreen.js",
+<<<<<<< HEAD
          "js/game/screens/EndScreen.js"
+=======
+        "js/game/screens/EndScreen.js"
+>>>>>>> fab9462023c9d77f42ca422abd60785a91a3b545
     ],
 
     CSS: [
