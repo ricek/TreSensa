@@ -102,7 +102,8 @@ GameScreen.prototype =
     },
     updateTeemo: function(event){
         var t = event.currentTarget;
-        if(event.keyCode==37){
+        
+        if(event.keyCode==37 ){
             t.x-=30;
             t.setImage('teemo_left',1,7);
         }
@@ -112,17 +113,17 @@ GameScreen.prototype =
         }
 		
     },
-    updateTeemoTouch:function(event){
+    /*updateTeemoTouch:function(event){
     	var t = event.currentTarget;
-    	if(this.mouseX < this.width/2 )
-    		t.x-=30;
+    	if(this.mouseX < this.width/2 && t.x > 0)
+    		t.x-=30; 
             t.setImage('teemo_left',1,7);
     	}
-    	if(this.mouseX> this.width/2){
+    	if(this.mouseX> this.width/2 && t.x<this.width){
     		t.x+=30;
             t.setImage('teemo_right',1,7);
     	}
-    },
+    },*/
 
 	
     createMush:function(posx,posy){
@@ -158,7 +159,7 @@ GameScreen.prototype =
         this.teemo.play();
         //this.blocks[this.blocks.length-1].addEventListener("mousedown",this.updateBrick.bind(this.blocks[this.blocks.length-1]));
         this.teemo.addEventListener("keydown",this.updateTeemo.bind(this.teemo));
-        this.teemo.addEventListener("mousedown",this.updateTeemoTouch.bind(this));
+        //this.teemo.addEventListener("mousedown",this.updateTeemoTouch.bind(this));
     },
     updateGame:function() {
         for(var x =0;x<this.mushs.length;x++){
@@ -171,10 +172,9 @@ GameScreen.prototype =
 				this.createPot(this.pots[this.pots.length-1].x+50,50);
 				
 			}
-			if(this.teemo.getBounds().intersects(this.mushs[x].getBounds(),0.6,0.7) && this.pots.length < 10 && this.pots.length == 0){
-				this.createPot(50,50);
+			/*if(this.teemo.getBounds().intersects(this.mushs[x].getBounds(),0.6,0.7) && this.pots.length < 10 && this.pots.length == 0){
 				
-			}
+			}*/
 			if(this.mushs[x].y>this.height){
 				this.removeChild(this.pots[this.pots.length-1]);
 				this.mushs[x].y=0;
@@ -182,10 +182,20 @@ GameScreen.prototype =
 				//this.pots.splice(this.pots[9]);
 				
 			}
+			
 		}
+		if(this.pots.length <= 0){
+				this.gotoEndScreen();
+			}
 
     
     },
+    gotoEndScreen : function() {
+		this.transitionToWindow({
+			windowClass : EndScreen,
+			fadeTime : 0.75
+		});
+	}	
 
     /*getBounds:function(){
         return this._checkVisibilityChange(),this._mBoundingInfoDirty&&this._updateAABB(),this._mAABB
