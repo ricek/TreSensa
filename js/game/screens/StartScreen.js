@@ -14,7 +14,7 @@ StartScreen.prototype = {
 
 	gotoGameScreen : function() {
 		this.transitionToWindow({
-			windowClass : GameScreen,
+			windowClass : EndScreen,
 			fadeTime : 0.75
 		});
 	}	

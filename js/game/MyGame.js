@@ -7,6 +7,7 @@ MyGame = function()
         //Sprite
         {id:'teemo_left',url:'teemo_left.png'},
         {id:'teemo_right',url:'teemo_right.png'},
+        {id:'death2',url:'death2.png'},
 
         //UI
         {id:'m',url:'murshoom.png'},
