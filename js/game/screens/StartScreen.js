@@ -7,7 +7,7 @@ StartScreen = function() {
         y : this.percentageOfHeight(0.5),
         scaleX : 0.5,
         scaleY : 0.5,
-        image: "teemo"
+        image: "teemo_alive"
     }));
     this.addChild(new TGE.Button().setup({
         x : this.percentageOfWidth(0.5),
@@ -21,7 +21,7 @@ StartScreen.prototype = {
 
 	gotoGameScreen : function() {
 		this.transitionToWindow({
-			windowClass : EndScreen,
+			windowClass : GameScreen,
 			fadeTime : 0.75
 		});
 	}	

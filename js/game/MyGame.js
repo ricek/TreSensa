@@ -5,10 +5,10 @@ MyGame = function()
     this.assetManager.addAssets("required",[
 
         //Sprite
-        {id:'teemo',url:'teemo.png'},
+        {id:'teemo_alive',url:'teemo_alive.png'},
+        {id:'teemo_dead',url:'teemo_dead.png'},
         {id:'teemo_left',url:'teemo_left.png'},
         {id:'teemo_right',url:'teemo_right.png'},
-        {id:'death2',url:'death2.png'},
 
         //UI
         {id:'m',url:'murshoom.png'},
