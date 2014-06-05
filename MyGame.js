@@ -8,6 +8,7 @@ MyGame = function()
         {id:'teemo_left',url:'assets/teemo_left.png'},
         {id:'teemo_right',url:'assets/teemo_right.png'},
         {id:'m',url:'assets/murshoom.png'},
+		{id:'pot',url:'assets/pot.png'},
         //Blocks
         /*{id:'b1',url:'assets/block/style1.png'},
         {id:'b2',url:'assets/block/style2.png'},
