@@ -113,17 +113,17 @@ GameScreen.prototype =
         }
 		
     },
-    /*updateTeemoTouch:function(event){
+    updateTeemoTouch:function(event){
     	var t = event.currentTarget;
-    	if(this.mouseX < this.width/2 && t.x > 0)
+    	if(this.mouseX < this.width/2)
     		t.x-=30; 
             t.setImage('teemo_left',1,7);
     	}
-    	if(this.mouseX> this.width/2 && t.x<this.width){
+    	if(this.mouseX> this.width/2){
     		t.x+=30;
             t.setImage('teemo_right',1,7);
     	}
-    },*/
+    },
 
 	
     createMush:function(posx,posy){
@@ -159,7 +159,7 @@ GameScreen.prototype =
         this.teemo.play();
         //this.blocks[this.blocks.length-1].addEventListener("mousedown",this.updateBrick.bind(this.blocks[this.blocks.length-1]));
         this.teemo.addEventListener("keydown",this.updateTeemo.bind(this.teemo));
-        //this.teemo.addEventListener("mousedown",this.updateTeemoTouch.bind(this));
+        this.teemo.addEventListener("mousedown",this.updateTeemoTouch.bind(this.teemo));
     },
     updateGame:function() {
         for(var x =0;x<this.mushs.length;x++){
