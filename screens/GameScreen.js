@@ -7,6 +7,7 @@ GameScreen = function(width,height)
     this.teemo;
     this.mush;
     this.mushs= new Array();
+    this.teemoImage;
     //this.blocks = new Array();
     this.createTeemo();
 
@@ -20,7 +21,7 @@ GameScreen = function(width,height)
     
     //this.collision(this.blocks[0],this.blocks[1]);
     
-    for(var x = 0 ;x<10;x++){this.createMush(Math.random()*this.width,-100);}
+    for(var x = 0 ;x<5;x++){this.createMush(Math.random()*this.width,Math.random()*-400);}
     
     
 };
@@ -39,13 +40,13 @@ GameScreen.prototype =
     },
     updateMush:function(event){
         var m = event.currentTarget;
-        m.y+=3;
+        m.y+=Math.random()*5;
         
     },
     updateTeemo: function(event){
         var t = event.currentTarget;
-        if(event.keyCode==37){t.x-=30;}
-        if(event.keyCode==39){t.x+=30;}
+        if(event.keyCode==37){t.x-=30;this.teemoImage = "teemo_left";}
+        if(event.keyCode==39){t.x+=30;this.teemoImage = "teemo_right";}
     },
     createMush:function(posx,posy){
         this.mush = new TGE.Sprite().setup(
@@ -72,8 +73,8 @@ GameScreen.prototype =
             rows:1,
             totalFrames:7,
             fps:7,
-            x:600,
-            y:800,
+            x:this.width / 2,
+            y:this.height - 50,
         });
         //this.blocks.push(b);
         this.addChild(this.teemo);
@@ -83,7 +84,12 @@ GameScreen.prototype =
     },
     updateGame:function() {
         for(var x =0;x<this.mushs.length;x++){
-        if(this.teemo.getBounds().intersects(this.mushs[x].getBounds())){this.removeChild(this.mushs[x]);}
+        if(this.teemo.getBounds().intersects(this.mushs[x].getBounds())){
+            this.mushs[x].x=Math.random()*this.width;
+            this.mushs[x].y=Math.random()*-400;
+
+        }
+
     }
     },
     /*getBounds:function(){

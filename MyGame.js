@@ -5,7 +5,8 @@ MyGame = function()
 
    
     var gameAssets = [
-        {id:'teemo',url:'assets/teemo_captain.png'},
+        {id:'teemo_left',url:'assets/teemo_left.png'},
+        {id:'teemo_right',url:'assets/teemo_right.png'},
         {id:'m',url:'assets/murshoom.png'},
         //Blocks
         /*{id:'b1',url:'assets/block/style1.png'},
