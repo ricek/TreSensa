@@ -1,46 +1,25 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta charset="UTF-8"/>
-        <meta name="apple-mobile-web-app-capable" content="yes" />
-        <meta name="viewport"/>
-
         <title>SMASH the Teemo</title>
 
-        <!-- Stylesheet -->
-        <link rel="stylesheet" href="style.css"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=IE9" >
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
-        <!-- TreSensa files -->
-        <script src="lib/viewporter.js"></script>
-        <script src="lib/PxLoader.js"></script>
-        <script src="lib/PxLoaderImage.js"></script>
-        <script src="lib/tge-1.0.min.js"></script>
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui" />
 
-        <!-- Project files  -->
-        <script src="MyGame.js"></script>
-        <script src="screens/Loading.js"></script>
-        <script src="screens/StartScreen.js"></script>
-        <script src="screens/GameScreen.js"></script>
+        <!-- TGL:KEEP -->
+        <!-- TGL:KEEP:END -->
 
-        <!-- TreSensa Game Engine -->
-        <script type="text/javascript">
-            function initializeTGE() {
-                var _myGame = new MyGame();
-                if(_myGame.IsPlatformAcceptable()) {
-                    _myGame.Launch( {gameDiv:"game_canvas"} );
-                }
-                else
-                {
-                    // Handle rejected platform as desired...
-                }
-            }
-            window.addEventListener ? window.addEventListener("load",initializeTGE,false) : window.attachEvent && window.attachEvent("onload",initializeTGE);
-        </script>
+        <script src="js/lib/tgl/tgl.boot.min.js"></script>
     </head>
 
     <body>
+        <!-- TreSensa TGE viewporter div -->
         <div id="viewporter" align="center" width="100%">
-            <div id="game_canvas" style="position:relative; width:100%; height:100%;"></div>
+            <div id = "wrong_orientation" style = "display:none;" ><img src="reorient-message.jpg"></div>
+            <div id="preloader" align="center">Connecting to Game Server...</div>
+            <div id="game_canvas"></div>
         </div>
     </body>
 </html>
