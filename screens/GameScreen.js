@@ -7,10 +7,17 @@ GameScreen = function(width,height)
     this.teemo;
     this.mush;
     this.mushs= new Array();
-    this.teemoImage;
+    this.score;
+    this.scoreDisplayed = 0;
     //this.blocks = new Array();
     this.createTeemo();
-
+    this.score = new TGE.Text().setup({
+            text:"Score: "+this.scoreDisplayed.toString(),
+            font:"32px Aria",
+            hAlign:"left",
+            vAlign:"top",
+    });
+    this.addChild(this.score);
     //this.createBlock(300,300,"b1");
    // this.createBlock(350,300,"b1");
     /*this.createBlock(400,300,"b1");
@@ -22,7 +29,8 @@ GameScreen = function(width,height)
     //this.collision(this.blocks[0],this.blocks[1]);
     
     for(var x = 0 ;x<5;x++){this.createMush(Math.random()*this.width,Math.random()*-400);}
-    
+    this.addEventListener("update",this.updateGame.bind(this)); 
+    this.score.addEventListener("update",this.updateScore.bind(this));
     
 };
 
@@ -30,12 +38,28 @@ GameScreen.prototype =
 {
    
    
-    updateBrick: function(event){
+    /*updateBrick: function(event){
         var b = event.currentTarget;
         b.x +=10;
         b.play();
         
         
+
+    },*/
+    updateScore:function(){
+        for(var x =0;x<this.mushs.length;x++){
+            if(this.teemo.getBounds().intersects(this.mushs[x].getBounds())){
+                this.scoreDisplayed+=1;
+                this.removeChild(this.score);
+                this.score = new TGE.Text().setup({
+                    text:"Score: "+this.scoreDisplayed.toString(),
+                    font:"32px Aria",
+                    hAlign:"left",
+                    vAlign:"top",
+                });
+                this.addChild(this.score);
+            }
+        }
 
     },
     updateMush:function(event){
@@ -45,8 +69,14 @@ GameScreen.prototype =
     },
     updateTeemo: function(event){
         var t = event.currentTarget;
-        if(event.keyCode==37){t.x-=30;this.teemoImage = "teemo_left";}
-        if(event.keyCode==39){t.x+=30;this.teemoImage = "teemo_right";}
+        if(event.keyCode==37){
+            t.x-=30;
+            t.setImage('teemo_left',1,7);
+        }
+        if(event.keyCode==39){
+            t.x+=30;
+            t.setImage('teemo_right',1,7);
+        }
     },
     createMush:function(posx,posy){
         this.mush = new TGE.Sprite().setup(
@@ -60,7 +90,7 @@ GameScreen.prototype =
         });
         this.addChild(this.mush);
         this.mush.addEventListener("update",this.updateMush.bind(this.mush));
-        this.addEventListener("update",this.updateGame.bind(this));
+        
         this.mushs.push(this.mush);
 
         //this.mush.addEventListener("update",this.updateCollision.bind(this.mush));
@@ -68,7 +98,7 @@ GameScreen.prototype =
     createTeemo: function(){
         this.teemo =new TGE.SpriteSheetAnimation().setup(
         {
-            image:'teemo',
+            image:'teemo_left',
             columns:7,
             rows:1,
             totalFrames:7,
@@ -88,10 +118,12 @@ GameScreen.prototype =
             this.mushs[x].x=Math.random()*this.width;
             this.mushs[x].y=Math.random()*-400;
 
+
         }
 
     }
     },
+
     /*getBounds:function(){
         return this._checkVisibilityChange(),this._mBoundingInfoDirty&&this._updateAABB(),this._mAABB
     },*/
