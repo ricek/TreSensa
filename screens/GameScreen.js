@@ -16,7 +16,7 @@ GameScreen = function(width,height)
     this.score = new TGE.Text().setup({
             text:"Score: "+this.scoreDisplayed.toString(),
             font:"32px Aria",
-            hAlign:"left",
+            hAlign:"right",
             vAlign:"top",
     });
     this.addChild(this.score);
@@ -33,7 +33,7 @@ GameScreen = function(width,height)
 		this.createPot(x*50,50);
 	}
     
-    for(var x = 0 ;x<10;x++){this.createMush(Math.random()*this.width,Math.random()*-800);}
+    for(var x = 0 ;x<5;x++){this.createMush(Math.random()*this.width,Math.random()*-800);}
     this.addEventListener("update",this.updateGame.bind(this)); 
 	
     this.score.addEventListener("update",this.updateScore.bind(this));
@@ -150,16 +150,16 @@ GameScreen.prototype =
     },
     updateGame:function() {
         for(var x =0;x<this.mushs.length;x++){
-			if(this.teemo.getBounds().intersects(this.mushs[x].getBounds())){
+			if(this.teemo.getBounds().intersects(this.mushs[x].getBounds(),0.6,0.7)){
 				this.mushs[x].x=Math.random()*this.width;
 				this.mushs[x].y=Math.random()*-400;
 				
 			}
-            if(this.teemo.getBounds().intersects(this.mushs[x].getBounds()) && this.pots.length < 10 && this.pots.length > 0){
+            if(this.teemo.getBounds().intersects(this.mushs[x].getBounds(),0.6,0.7) && this.pots.length < 10 && this.pots.length > 0){
 				this.createPot(this.pots[this.pots.length-1].x+50,50);
 				
 			}
-			if(this.teemo.getBounds().intersects(this.mushs[x].getBounds()) && this.pots.length < 10 && this.pots.length == 0){
+			if(this.teemo.getBounds().intersects(this.mushs[x].getBounds(),0.6,0.7) && this.pots.length < 10 && this.pots.length == 0){
 				this.createPot(50,50);
 				
 			}
