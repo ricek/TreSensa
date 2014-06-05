@@ -19,7 +19,7 @@ GameScreen = function(width,height)
             hAlign:"right",
             vAlign:"top",
     });
-    this.addChild(this.score);
+    //this.addChild(this.score);
     //this.createBlock(300,300,"b1");
    // this.createBlock(350,300,"b1");
     /*this.createBlock(400,300,"b1");
@@ -37,6 +37,8 @@ GameScreen = function(width,height)
     this.addEventListener("update",this.updateGame.bind(this)); 
 	
     this.score.addEventListener("update",this.updateScore.bind(this));
+    this.addEventListener("mousedown",this.updateTeemoTouch.bind(this));
+   
     
 };
 
@@ -83,14 +85,14 @@ GameScreen.prototype =
         for(var x =0;x<this.mushs.length;x++){
             if(this.teemo.getBounds().intersects(this.mushs[x].getBounds())){
                 this.scoreDisplayed+=1;
-                this.removeChild(this.score);
+                //this.removeChild(this.score);
                 this.score = new TGE.Text().setup({
                     text:"Score: "+this.scoreDisplayed.toString(),
                     font:"32px Aria",
                     hAlign:"left",
                     vAlign:"top",
                 });
-                this.addChild(this.score);
+                //this.addChild(this.score);
             }
         }
 
@@ -103,7 +105,7 @@ GameScreen.prototype =
     updateTeemo: function(event){
         var t = event.currentTarget;
         
-        if(event.keyCode==37 ){
+        if(event.keyCode==37){
             t.x-=30;
             t.setImage('teemo_left',1,7);
         }
@@ -114,14 +116,14 @@ GameScreen.prototype =
 		
     },
     updateTeemoTouch:function(event){
-    	var t = event.currentTarget;
-    	if(this.mouseX < this.width/2)
-    		t.x-=30; 
-            t.setImage('teemo_left',1,7);
+    	
+    	if(this.mouseX < this.width/2){
+    		this.teemo.x-=30; 
+            this.teemo.setImage('teemo_left',1,7);
     	}
-    	if(this.mouseX> this.width/2){
-    		t.x+=30;
-            t.setImage('teemo_right',1,7);
+    	else if(this.mouseX> this.width/2){
+    		this.teemo.x+=30;
+            this.teemo.setImage('teemo_right',1,7);
     	}
     },
 
@@ -159,7 +161,7 @@ GameScreen.prototype =
         this.teemo.play();
         //this.blocks[this.blocks.length-1].addEventListener("mousedown",this.updateBrick.bind(this.blocks[this.blocks.length-1]));
         this.teemo.addEventListener("keydown",this.updateTeemo.bind(this.teemo));
-        this.teemo.addEventListener("mousedown",this.updateTeemoTouch.bind(this.teemo));
+        
     },
     updateGame:function() {
         for(var x =0;x<this.mushs.length;x++){
