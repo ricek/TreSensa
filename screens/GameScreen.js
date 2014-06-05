@@ -9,6 +9,8 @@ GameScreen = function(width,height)
     this.mushs= new Array();
     this.score;
     this.scoreDisplayed = 0;
+	this.pots=new Array();
+	this.pot;
     //this.blocks = new Array();
     this.createTeemo();
     this.score = new TGE.Text().setup({
@@ -27,9 +29,13 @@ GameScreen = function(width,height)
     this.createBlock(600,300,"b1");*/
     
     //this.collision(this.blocks[0],this.blocks[1]);
+	for(var x = 1;x<=10;x++){
+		this.createPot(x*50,50);
+	}
     
-    for(var x = 0 ;x<5;x++){this.createMush(Math.random()*this.width,Math.random()*-400);}
+    for(var x = 0 ;x<10;x++){this.createMush(Math.random()*this.width,Math.random()*-800);}
     this.addEventListener("update",this.updateGame.bind(this)); 
+	
     this.score.addEventListener("update",this.updateScore.bind(this));
     
 };
@@ -46,6 +52,33 @@ GameScreen.prototype =
         
 
     },*/
+	createPot:function(posx,posy){
+		this.pot = new TGE.Sprite().setup({
+			image:'pot',
+			x:posx,
+			y:posy,
+			
+			
+		});
+		this.addChild(this.pot);
+		this.pots.push(this.pot);
+		
+	
+	
+	},
+	/*updatePot:function(){
+		for(var z =0;z<this.mushs.length;z++){
+            if(this.teemo.getBounds().intersects(this.mushs[z].getBounds()) && this.pots.length < 10){
+				this.createPot(this.pots[this.pots.length-1].x+50,50);
+			}
+			if(this.mushs[z].x>this.height){
+				this.removeChild(this.pots[this.pots.length-1]);
+			
+			}
+		}
+	},*/	
+		
+	
     updateScore:function(){
         for(var x =0;x<this.mushs.length;x++){
             if(this.teemo.getBounds().intersects(this.mushs[x].getBounds())){
@@ -73,11 +106,14 @@ GameScreen.prototype =
             t.x-=30;
             t.setImage('teemo_left',1,7);
         }
-        if(event.keyCode==39){
+        else if(event.keyCode==39){
             t.x+=30;
             t.setImage('teemo_right',1,7);
         }
+		
     },
+
+	
     createMush:function(posx,posy){
         this.mush = new TGE.Sprite().setup(
         {
@@ -114,14 +150,29 @@ GameScreen.prototype =
     },
     updateGame:function() {
         for(var x =0;x<this.mushs.length;x++){
-        if(this.teemo.getBounds().intersects(this.mushs[x].getBounds())){
-            this.mushs[x].x=Math.random()*this.width;
-            this.mushs[x].y=Math.random()*-400;
+			if(this.teemo.getBounds().intersects(this.mushs[x].getBounds())){
+				this.mushs[x].x=Math.random()*this.width;
+				this.mushs[x].y=Math.random()*-400;
+				
+			}
+            if(this.teemo.getBounds().intersects(this.mushs[x].getBounds()) && this.pots.length < 10 && this.pots.length > 0){
+				this.createPot(this.pots[this.pots.length-1].x+50,50);
+				
+			}
+			if(this.teemo.getBounds().intersects(this.mushs[x].getBounds()) && this.pots.length < 10 && this.pots.length == 0){
+				this.createPot(50,50);
+				
+			}
+			if(this.mushs[x].y>this.height){
+				this.removeChild(this.pots[this.pots.length-1]);
+				this.mushs[x].y=0;
+				this.pots.pop()
+				//this.pots.splice(this.pots[9]);
+				
+			}
+		}
 
-
-        }
-
-    }
+    
     },
 
     /*getBounds:function(){
